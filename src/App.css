@@ -73,3 +73,13 @@
   color: #fff;
   font-size: 2em;
 }
+.info-div input{
+  font-size: .5em;
+  margin: 10px;
+}
+.info-div button{
+  background-color: #89a7b6;
+  color: #fff;
+  font-size: .5em;
+  margin: 10px;
+}
