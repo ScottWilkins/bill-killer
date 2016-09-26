@@ -6,6 +6,17 @@ import BillForm from './components/BillForm';
 import Bill from './components/Bill';
 import './App.css';
 import _ from 'lodash';
+import firebase from 'firebase';
+
+var config = {
+  apiKey: "AIzaSyBk4bIpyMCsdFiRjtqZDEYGvlNxybFAnHQ",
+  authDomain: "galvanize-eats-b4eeb.firebaseapp.com",
+  databaseURL: "https://galvanize-eats-b4eeb.firebaseio.com",
+  storageBucket: "galvanize-eats-b4eeb.appspot.com",
+  messagingSenderId: "846614561093"
+};
+firebase.initializeApp(config);
+
 
 class Main extends Component {
   constructor (){
@@ -94,7 +105,7 @@ _getBills(){
         <Navbar />
         <div className="splash-div">
           <div className="title-div">
-            <h1>Bill Kill</h1>
+            <h1>FairShare</h1>
           </div>
           <Logo />
         </div>
@@ -111,6 +122,10 @@ _getBills(){
         </div>
       </div>
   );
+  }
+  componentWillMount(){
+    const logs = firebase.database().ref;
+
   }
 }
 
