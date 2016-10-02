@@ -102,6 +102,9 @@
   font-size: 1em;
 
 }
+td {
+    padding: 3px;
+}
 table, th, td {
     border: 1px solid #339966;
     text-align: right;
@@ -122,7 +125,7 @@ table {
   padding: 15px;
   height: 300px;
   overflow: scroll;
-  border: solid #c1cddc 2px
+  border: solid #c1cddc 2px;
 }
 .bill-div h1 {
   color: #003300;
@@ -146,4 +149,10 @@ table {
 label {
   font-size: 20px;
   margin-right: 4px;
+}
+.add-button {
+  background-color: #89a7b6;
+  color: #fff;
+  font-size: 1em;
+  margin-left: 2px;
 }

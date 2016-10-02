@@ -19,6 +19,7 @@ firebase.initializeApp(config);
 
 
 class Main extends Component {
+  mixins: [ReactFireMixin];
   constructor (){
     super()
     this.state = {
@@ -31,8 +32,9 @@ class Main extends Component {
     this._onAdd = this._onAdd.bind(this);
   }
   _deleteBill(bill, totalArray){
+    const total = totalArray.length > 0 ? totalArray.reduce((a,b) => {
+      return a+ +b.payment},0) : 0;
 
-    const total = totalArray.length > 0 ? totalArray.reduce((a,b) => a+b) : 0;
     const totalBill = this.state.billTotal - total
     const bills = [...this.state.bills]
     const billIndex = bills.indexOf(bill);
@@ -43,14 +45,13 @@ class Main extends Component {
     })
 }
   _deletePayment(amount){
-console.log(this.state.billTotal);
     const totalBill = this.state.billTotal - +amount
     this.setState({
       billTotal: totalBill
     })
 }
 _getBills(){
-  let nOF = this.state.bills.reduce((tally,num)=>{
+  let numOfUsers = this.state.bills.reduce((tally,num)=>{
     return tally + +num.weight
   },0);
   return this.state.bills.map((bill) => {
@@ -65,19 +66,19 @@ _getBills(){
         onDeletePayment={this._deletePayment}
         onAdd={this._onAdd}
         billTotal={this.state.billTotal}
-        numberOfUsers={nOF}
+        numberOfUsers={numOfUsers}
         />
     );
   });
 }
-  _onAdd(number,idNum){
+  _onAdd(number,idNum,description){
+    //console.log(description);
     const idx = _.findIndex(this.state.bills, function(bill) { return bill.id === idNum })
-    this.state.bills[idx].total
+    //this.state.bills[idx].total
     const bills = [...this.state.bills]
     const totalBill = this.state.billTotal + +number
-    bills[idx].total.push(+number)
-
-      this.setState({
+    bills[idx].total.push({payment: +number, description: description});
+    this.setState({
     bills,
     billTotal: totalBill
   })
@@ -124,7 +125,10 @@ _getBills(){
   );
   }
   componentWillMount(){
-    const logs = firebase.database().ref;
+    const logs = firebase.database().ref('scott/camping/bills');
+    logs.on('value', function(snapshot) {
+    console.log(snapshot.val());
+}.bind(this));
 
   }
 }

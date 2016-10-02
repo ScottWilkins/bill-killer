@@ -11,7 +11,8 @@ class Bills extends Component {
 
   render() {
     let payments = this._getPayments()|| [];
-    let total = this.props.total.length > 0 ? this.props.total.reduce((a,b) => a+b) : 0;
+    let total = this.props.total.length > 0 ? this.props.total.reduce((a,b) => {
+      return a+ +b.payment},0) : 0;
     let tot = this.props.billTotal
     let num = this.props.numberOfUsers
     let weight = this.props.weight
@@ -21,9 +22,10 @@ class Bills extends Component {
     return (
       <div  className="bill-div" >
         <h1>{this.props.name}{weighted}</h1>
-        <form onSubmit={this._handleSubmit}>
-        <input type="number" step="0.01" placeholder="0" ref={(input) => this._number = input}/>
-        <button type="submit">Add</button>
+        <form  className="bill-form-details" onSubmit={this._handleSubmit}>
+          <input type="number" step="0.01" placeholder="0" ref={(input) => this._number = input}/>
+          <input type="text" placeholder="Optional Description" ref={(input) => this._description = input}/>
+          <button className="add-button" type="submit">Add</button>
         </form>
         <table>
           <thead>
@@ -45,8 +47,10 @@ class Bills extends Component {
     e.preventDefault();
     let number = this._number;
     let id = this.props.id;
-    this.props.onAdd(number.value, id);
+    let description = this._description;
+    this.props.onAdd(number.value, id, description.value);
     this._number.value = "";
+    this._description.value = "";
   }
 
   _handleDelete (e) {
@@ -58,7 +62,8 @@ class Bills extends Component {
     return this.props.total.map((num, i) => {
       return (
         <tr key={i}>
-          <td key={i}>${num.toFixed(2)}</td>
+          <td key={i}>${+num.payment.toFixed(2)}</td>
+          <td>{num.description || ""}</td>
           <td ><a key={i} href="#" onClick={(event) => this._handleDeletePayment(i, event)}>Delete</a></td>
         </tr>
       )
@@ -66,8 +71,7 @@ class Bills extends Component {
   }
   _handleDeletePayment (index, event) {
     event.preventDefault()
-    const subtract = this.props.total.splice(index,1).join("")
-
+    const subtract = this.props.total.splice(index,1)[0].payment
     this.props.onDeletePayment(subtract)
   }
 }
