@@ -6,20 +6,10 @@ import BillForm from './components/BillForm';
 import Bill from './components/Bill';
 import './App.css';
 import _ from 'lodash';
-import firebase from 'firebase';
 
-var config = {
-  apiKey: "AIzaSyBk4bIpyMCsdFiRjtqZDEYGvlNxybFAnHQ",
-  authDomain: "galvanize-eats-b4eeb.firebaseapp.com",
-  databaseURL: "https://galvanize-eats-b4eeb.firebaseio.com",
-  storageBucket: "galvanize-eats-b4eeb.appspot.com",
-  messagingSenderId: "846614561093"
-};
-firebase.initializeApp(config);
 
 
 class Main extends Component {
-  mixins: [ReactFireMixin];
   constructor (){
     super()
     this.state = {
@@ -125,10 +115,7 @@ _getBills(){
   );
   }
   componentWillMount(){
-    const logs = firebase.database().ref('scott/camping/bills');
-    logs.on('value', function(snapshot) {
-    console.log(snapshot.val());
-}.bind(this));
+
 
   }
 }

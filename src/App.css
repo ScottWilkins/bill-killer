@@ -30,6 +30,7 @@
   margin-left: 30%;
   align-self: flex-start;
 
+
 }
 .logo {
   margin-top: 20px;
@@ -37,6 +38,7 @@
   width: 200px;
 }
 .navbar-div {
+  position: fixed;
   padding: 0;
   display: flex;
   align-items: baseline;
@@ -155,4 +157,60 @@ label {
   color: #fff;
   font-size: 1em;
   margin-left: 2px;
+}
+.bullets-div {
+  padding: 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #c1cddc;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: times;
+  font-size: 1.5em;
+  height: 400px;
+  color: #fff;
+  background-color: #000022;
+}
+.bullets-div h5 {
+  margin: 5px;
+}
+.camping-img {
+  margin-top: 20px;
+  width: 100%
+}
+.login-signup-buttons-div {
+  display: flex;
+  align-items: center;
+}
+.login-btn {
+  background-color: green;
+  color: #fff;
+  height: 30px;
+  border-radius: 5px;
+}
+.signup-btn {
+  background-color: #db7406;
+  color: #fff;
+  height: 30px;
+  border-radius: 5px;
+}
+.signup-btn:hover, .login-btn:hover {
+  background-color: #222b7a;
+  cursor: pointer;
+}
+.login-form {
+  height: 500px;
+  color: #fff;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: #89a7b6;
+  margin-top: 70px;
+}
+.login-form input {
+  margin-right: 10px;
 }
