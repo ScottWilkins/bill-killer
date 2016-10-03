@@ -12,7 +12,7 @@ class TryOut extends Component {
   render () {
     return (
       <div className="try-out-div">
-        <h2 style={{textDecoration: "underline", color: "#fff"}}><Link  to="/">Try it Out!</Link></h2>
+        <h2><Link className="link" to="/">Try it Out!</Link></h2>
         <div style={{display: "flex"}}>
           <h5>(</h5>
           <h5 style={{color:"red"}}>WARNING:</h5>
