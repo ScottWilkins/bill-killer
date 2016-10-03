@@ -15,7 +15,12 @@ class LogInForm extends Component {
   render () {
     return (
       <form className="login-form" onSubmit={this._handleSubmit}>
-      <Logo />
+        <div className="splash-div">
+          <div className="title-div">
+            <h1>FairShare</h1>
+          </div>
+          <Logo />
+        </div>
         <div className="login-form-fields">
           <label>Email</label>
           <input type="email" placeholder="jon_snow@knownothing.com" ref={(input) => this._email = input}/>

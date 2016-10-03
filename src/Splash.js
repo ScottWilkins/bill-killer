@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Logo from './components/Logo';
 import camping from './assets/firecamp.png';
 import Navbar from './components/Navbar';
+import TryOut from './components/TryOut'
 
 import './App.css';
 
@@ -31,6 +32,7 @@ class Splash extends Component {
           <h5>Split costs evenly and efficiently</h5>
           <h5>Work together on an event or separately with realtime updates</h5>
           <h5>Pay or get paid directly through Venmo</h5>
+          <TryOut />
         </div>
       </div>
   );

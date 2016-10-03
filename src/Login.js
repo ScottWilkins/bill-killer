@@ -13,7 +13,7 @@ class LogIn extends Component {
   _login (email, pass) {
     const auth = app.auth();
         const promise = auth.signInWithEmailAndPassword(email, pass).then(function(user){
-          //AsyncStorage.setItem("userID", user.uid)
+        cookie.save("FairShareUserId", user.uid)
         //   this.props.navigator.push({
         //   title: 'LocksContainer',
         //   component: LocksContainer,
