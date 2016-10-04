@@ -35,7 +35,7 @@ class LogInForm extends Component {
             <input type="text" placeholder="CastleBlack22" ref={(input) => this._password = input}/>
             <label>Verify Password</label>
             <input type="text" placeholder="verify password" ref={(input) => this._passwordCheck = input}/>
-            <button type="submit">Submit</button>
+            <button style={{backgroundColor: "green"}} type="submit">Submit</button>
         </div>
 
 

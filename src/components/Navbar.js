@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router';
-import cookie from 'react-cookie'
+import cookie from 'react-cookie';
+import smiley from '../assets/smiley.svg';
 
 class Navbar extends Component {
   constructor () {
@@ -23,8 +24,20 @@ class Navbar extends Component {
     } else {
       return (
         <div className="determine-name-div">
-          <h2>Hello, {name}</h2>
-            <button onClick={this._logout}>Log Out</button>
+            <div className="dropdown">
+              <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><img className="smiley-img" src={smiley} alt="smileyface"/> {name}
+              </button>
+              <ul className="dropdown-menu">
+                <li onClick={this._logout} style={{color: "#000", cursor: "pointer"}}>Log Out</li>
+              </ul>
+            </div>
+            <div className="dropdown">
+              <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">My Events
+              </button>
+              <ul className="dropdown-menu">
+                <li style={{color: "#000", cursor: "pointer"}}>09/23/16 camping</li>
+              </ul>
+            </div>
         </div>
       )
     }

@@ -14,9 +14,7 @@ class TryOut extends Component {
       <div className="try-out-div">
         <h2><Link className="link" to="/">Try it Out!</Link></h2>
         <div style={{display: "flex"}}>
-          <h5>(</h5>
           <h5 style={{color:"red"}}>WARNING:</h5>
-          <h5>)</h5>
         </div>
         <h5 style={{color:"red"}}>data will not be saved unless you sign up!</h5>
       </div>
