@@ -9,9 +9,6 @@ import './App.css';
 
 
 class Splash extends Component {
-  constructor (){
-    super()
-  }
 
   render() {
     return (
@@ -23,7 +20,7 @@ class Splash extends Component {
           </div>
           <Logo />
         </div>
-        <img className="camping-img" src={camping} />
+        <img className="camping-img" src={camping} alt="campfire" />
             <h4 className="motto-txt">Who Owes What</h4>
         <div className="bullets-div">
           <h5>Fairshare lets you split costs with friends</h5>

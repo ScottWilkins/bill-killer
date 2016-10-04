@@ -20,6 +20,7 @@ class Main extends Component {
     this._deleteBill = this._deleteBill.bind(this);
     this._deletePayment = this._deletePayment.bind(this);
     this._onAdd = this._onAdd.bind(this);
+    this._clearBills = this._clearBills.bind(this)
   }
   _deleteBill(bill, totalArray){
     const total = totalArray.length > 0 ? totalArray.reduce((a,b) => {
@@ -34,6 +35,12 @@ class Main extends Component {
       billTotal: totalBill
     })
 }
+  _clearBills(){
+    this.setState({
+      billTotal: 0,
+      bills: [],
+    })
+  }
   _deletePayment(amount){
     const totalBill = this.state.billTotal - +amount
     this.setState({
@@ -93,7 +100,7 @@ _getBills(){
     const bills = this._getBills() || [];
     return (
       <div className="container">
-        <Navbar />
+        <Navbar clearBills={this._clearBills}/>
         <div className="splash-div">
           <div className="title-div">
             <h1>FairShare</h1>

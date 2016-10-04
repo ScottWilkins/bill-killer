@@ -12,13 +12,11 @@ class Signup extends Component {
   }
   _signup (email, pass, userName) {
     const auth = app.auth();
-        const promise = auth.createUserWithEmailAndPassword(email, pass).then(function(user){
+          auth.createUserWithEmailAndPassword(email, pass).then(function(user){
           app.database().ref('users/'+user.uid).set({events: "", name: userName, email: email})
-          window.reactCookie.save("FairShareUserId", user.uid)
-        //   this.props.navigator.push({
-        //   title: 'Lock Details',
-        //   component: LocksContainer,
-        // })
+          cookie.save("FairShareUserId", user.uid)
+          cookie.save("FairShareName", userName)
+          window.location.href= "/";
       }).catch(e=>alert(e.message));
       }
   render() {

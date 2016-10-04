@@ -1,4 +1,7 @@
-
+.body{
+  margin: 0;
+  padding: 0;
+}
 .container {
   /*height: 200vh;*/
   width: 100vw;
@@ -222,4 +225,17 @@ label {
   height: 300px;
   width: 400px;
   border: 2px solid orange;
+}
+.determine-name-div {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: .8em;
+}
+.determine-name-div button {
+  background-color: #db7406;
+  color: #fff;
+  height: 25px;
+  border-radius: 5px;
+  margin-left: 20px;
 }
