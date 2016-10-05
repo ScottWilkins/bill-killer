@@ -31,6 +31,9 @@ class Signup extends Component {
       </div>
     );
   }
+  componentWillUnmount() {
+    app.off();
+  }
 }
 
 export default Signup;

@@ -1,6 +1,6 @@
 const firebase = require('firebase');
 
-var config = {
+const config = {
   apiKey: "AIzaSyBk4bIpyMCsdFiRjtqZDEYGvlNxybFAnHQ",
   authDomain: "galvanize-eats-b4eeb.firebaseapp.com",
   databaseURL: "https://galvanize-eats-b4eeb.firebaseio.com",
