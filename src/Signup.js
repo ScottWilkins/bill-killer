@@ -32,7 +32,7 @@ class Signup extends Component {
     );
   }
   componentWillUnmount() {
-    app.off();
+    // app.off();
   }
 }
 

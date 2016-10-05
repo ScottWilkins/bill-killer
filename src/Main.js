@@ -104,20 +104,29 @@ class Main extends Component {
     app.database().ref('events/' + eventId).set({
       owner: cookie.load('FairShareUserId'),
       event,
-      date,
-      permissions: ""
-  }).then(()=>{
+      date
+  }).then( () => {
     var eventRef = app.database().ref('events/' + eventId);
     eventRef.on('child_added', (snapshot) => {
             this.setState({
             events: snapshot.val(),
             currentEvent: eventId
           });
-            console.log(this.state.events);
 
         })
 
-  });
+  }).then( () => {
+    const userId = cookie.load('FairShareUserId');
+
+    app.database().ref("users/" + userId + "/events").push(
+
+      {
+        eventId: eventId,
+        eventName: event,
+        eventDate: date
+      }
+  );
+})
 }
   _addBill(name, weight) {
   if(!name){

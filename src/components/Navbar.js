@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import {Link} from 'react-router';
 import cookie from 'react-cookie';
 import smiley from '../assets/smiley.svg';
+var app = require('./Firebase');
 
 class Navbar extends Component {
   constructor () {
     super();
     const name = cookie.load('FairShareName');
-    this.state={user: name}
+    this.state={user: name,
+        events: ""
+    }
     this._determineUser = this._determineUser.bind(this);
     this._logout = this._logout.bind(this);
+    this._getEvents = this._getEvents.bind(this);
   }
   _determineUser(){
     const name = cookie.load('FairShareName');
@@ -22,6 +26,8 @@ class Navbar extends Component {
         </div>
       )
     } else {
+      const events = this._getEvents() || [];
+
       return (
         <div className="determine-name-div">
             <div className="dropdown">
@@ -35,12 +41,25 @@ class Navbar extends Component {
               <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">My Events
               </button>
               <ul className="dropdown-menu">
-                <li style={{color: "#000", cursor: "pointer"}}>09/23/16 camping</li>
+                {events}
               </ul>
             </div>
         </div>
       )
     }
+  }
+  _getEvents(){
+      var events = this.state.events;
+   return Object.keys(events).map((event) => {
+
+      return (
+        <li key={events[event].eventId}
+            style={{color: "#000", cursor: "pointer"}}
+             >
+            {events[event].eventDate} {events[event].eventName}
+        </li>
+      )
+    })
   }
   _logout () {
     this.setState({
@@ -49,6 +68,16 @@ class Navbar extends Component {
       cookie.save("FairShareName", "guest");
       cookie.remove("FairShareUserId");
       this.props.clearBills()
+  }
+  componentWillMount(){
+    const userId = cookie.load('FairShareUserId');
+    app.database().ref('users/' + userId).on('value', (snapshot) => {
+       var eventsList = snapshot.child("events").val();
+       //console.log(eventsList);
+       this.setState({
+         events: eventsList
+       })
+     })
   }
   render () {
     const user = this._determineUser()
