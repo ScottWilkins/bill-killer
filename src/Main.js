@@ -32,6 +32,7 @@ class Main extends Component {
     this._convertBillToArray = this._convertBillToArray.bind(this);
     this._totalBill = this._totalBill.bind(this);
     this._loadEvent = this._loadEvent.bind(this);
+    this._setBillStateToFirebase = this._setBillStateToFirebase.bind(this);
 
 
   }
@@ -50,7 +51,7 @@ class Main extends Component {
       temp.id=bill[item].id;
       temp.name=bill[item].name;
       temp.weight=bill[item].weight;
-      var temp2 = bill[item].total
+      var temp2 = bill[item].total || []
       temp.total = Object.keys(temp2).reduce((ar,it,ix) => {
         ar.push(temp2[it])
         return ar;
@@ -60,16 +61,15 @@ class Main extends Component {
     },[])
   }
   _deleteBill(bill, totalArray){
-    const total = totalArray.length > 0 ? totalArray.reduce((a,b) => {
-      return a+ +b.payment},0) : 0;
-
-    const totalBill = this.state.billTotal - total
     const bills = [...this.state.bills]
     const billIndex = bills.indexOf(bill);
     bills.splice(billIndex,1)
     this.setState({
-      bills,
-      billTotal: totalBill
+      bills
+    }, () => {
+      this._setBillStateToFirebase()
+      this._totalBill()
+
     })
 }
   _clearBills(){
@@ -80,10 +80,13 @@ class Main extends Component {
       events: ""
     })
   }
+  //redo Delete so total is affected
   _deletePayment(amount){
     const totalBill = this.state.billTotal - +amount
     this.setState({
       billTotal: totalBill
+    },()=>{
+      this._setBillStateToFirebase()
     })
 }
   _getBills(){
@@ -110,6 +113,7 @@ class Main extends Component {
   _totalBill(){
     var total = 0
     this.state.bills.forEach((a)=>{
+      if(a.total.length === 0) return;
       return a.total.forEach(b => {
         total += b.payment
       })
@@ -119,7 +123,6 @@ class Main extends Component {
     })
   }
   _onAdd(number,idNum,description){
-    //console.log(description);
     const idx = _.findIndex(this.state.bills, function(bill) { return bill.id === idNum })
     //this.state.bills[idx].total
     const bills = [...this.state.bills]
@@ -128,6 +131,16 @@ class Main extends Component {
     bills
   })
   this._totalBill();
+  this._setBillStateToFirebase()
+  }
+  _setBillStateToFirebase(){
+    var eventId = this.state.currentEvent;
+    if(!eventId) return;
+
+    var bills = this._convertBillToObject(this.state.bills);
+    app.database().ref('events/' + eventId).set({
+      bills
+  })
   }
   _addEvent (event, date, permissions) {
     if(!event){
@@ -181,6 +194,8 @@ class Main extends Component {
   };
   this.setState({
     bills: this.state.bills.concat([bill])
+  },() => {
+    this._setBillStateToFirebase()
   })
 }
 _renderEventForm(){
@@ -196,7 +211,8 @@ _renderEventForm(){
     app.database().ref('events/' + id +'/bills').on('value', (snapshot) => {
               var bills = this._convertBillToArray(snapshot.val())
               this.setState({
-              bills: bills
+              bills: bills,
+              currentEvent: id
             }, () => {
               this._totalBill();
             });
@@ -234,15 +250,15 @@ _renderEventForm(){
   );
   }
   componentWillMount(){
-
-  // app.database().ref('events/1475714122245/bills').on('value', (snapshot) => {
-  //           var bills = this._convertBillToArray(snapshot.val())
-  //           this.setState({
-  //           bills: bills
-  //         });
-  //
-  //         this._totalBill();
-  //       })
+    // var eventId = this.state.currentEvent
+    // app.database().ref('events/'+ eventId).on('value', (snapshot) => {
+    //         var bills = this._convertBillToArray(snapshot.val())
+    //         this.setState({
+    //         bills: bills
+    //       });
+    //
+    //       this._totalBill();
+    //     })
   }
 
 
@@ -250,7 +266,16 @@ _renderEventForm(){
 
   }
   componentDidMount(){
+    var eventId = this.state.currentEvent
+    if(!eventId) return;
+    app.database().ref('events/'+ eventId).on('value', (snapshot) => {
+            var bills = this._convertBillToArray(snapshot.val())
+            this.setState({
+            bills: bills
+          });
 
+          this._totalBill();
+        })
 }
 }
 
