@@ -14,6 +14,11 @@ class Navbar extends Component {
     this._determineUser = this._determineUser.bind(this);
     this._logout = this._logout.bind(this);
     this._getEvents = this._getEvents.bind(this);
+    this._handleLoadEvent = this._handleLoadEvent.bind(this)
+  }
+  _handleLoadEvent(id,e){
+    e.preventDefault();
+    this.props.loadEvent(id)
   }
   _determineUser(){
     const name = cookie.load('FairShareName');
@@ -51,12 +56,13 @@ class Navbar extends Component {
   _getEvents(){
       var events = this.state.events;
    return Object.keys(events).map((event) => {
-
+      var id = events[event].eventId
       return (
-        <li key={events[event].eventId}
+
+        <li key={id}
             style={{color: "#000", cursor: "pointer"}}
              >
-            {events[event].eventDate} {events[event].eventName}
+            <a href="#" onClick={(e) => this._handleLoadEvent(id,e)}>{events[event].eventDate} {events[event].eventName}</a>
         </li>
       )
     })

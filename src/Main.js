@@ -28,7 +28,36 @@ class Main extends Component {
     this._clearBills = this._clearBills.bind(this);
     this._addEvent = this._addEvent.bind(this);
     this._renderEventForm = this._renderEventForm.bind(this);
+    this._convertBillToObject = this._convertBillToObject.bind(this);
+    this._convertBillToArray = this._convertBillToArray.bind(this);
+    this._totalBill = this._totalBill.bind(this);
+    this._loadEvent = this._loadEvent.bind(this);
 
+
+  }
+  _convertBillToObject(bill){
+    return bill.reduce((obj,item,idx) => {
+      obj[idx]={id:item.id, weight:item.weight, name:item.name, total: item.total.reduce((o,it,x)=>{
+        o[x]={description:it.description, payment:it.payment};
+        return o;
+      },{})}
+      return obj
+    },{})
+  }
+  _convertBillToArray(bill){
+    return Object.keys(bill).reduce((arr,item,idx) => {
+      var temp = {};
+      temp.id=bill[item].id;
+      temp.name=bill[item].name;
+      temp.weight=bill[item].weight;
+      var temp2 = bill[item].total
+      temp.total = Object.keys(temp2).reduce((ar,it,ix) => {
+        ar.push(temp2[it])
+        return ar;
+      },[])
+      arr.push(temp)
+      return arr;
+    },[])
   }
   _deleteBill(bill, totalArray){
     const total = totalArray.length > 0 ? totalArray.reduce((a,b) => {
@@ -78,18 +107,27 @@ class Main extends Component {
       );
     });
 }
+  _totalBill(){
+    var total = 0
+    this.state.bills.forEach((a)=>{
+      return a.total.forEach(b => {
+        total += b.payment
+      })
+    })
+    this.setState({
+      billTotal: total
+    })
+  }
   _onAdd(number,idNum,description){
     //console.log(description);
     const idx = _.findIndex(this.state.bills, function(bill) { return bill.id === idNum })
     //this.state.bills[idx].total
     const bills = [...this.state.bills]
-    const totalBill = this.state.billTotal + +number
     bills[idx].total.push({payment: +number, description: description});
     this.setState({
-    bills,
-    billTotal: totalBill
+    bills
   })
-
+  this._totalBill();
   }
   _addEvent (event, date, permissions) {
     if(!event){
@@ -100,11 +138,13 @@ class Main extends Component {
       return;
     };
     var eventId = Date.now()
-
+    var billArray = this.state.bills;
+    var bills = this._convertBillToObject(billArray);
     app.database().ref('events/' + eventId).set({
       owner: cookie.load('FairShareUserId'),
       event,
-      date
+      date,
+      bills
   }).then( () => {
     var eventRef = app.database().ref('events/' + eventId);
     eventRef.on('child_added', (snapshot) => {
@@ -151,14 +191,25 @@ _renderEventForm(){
  } else {
    return "";
  }
-
 }
+  _loadEvent(id){
+    app.database().ref('events/' + id +'/bills').on('value', (snapshot) => {
+              var bills = this._convertBillToArray(snapshot.val())
+              this.setState({
+              bills: bills
+            }, () => {
+              this._totalBill();
+            });
+          })
+
+  }
   render() {
     const bills = this._getBills() || [];
     const eventform = this._renderEventForm();
     return (
       <div className="container">
-        <Navbar clearBills={this._clearBills}/>
+        <Navbar clearBills={this._clearBills}
+                loadEvent={this._loadEvent}/>
         <div className="splash-div">
           <div className="title-div">
             <h1>FairShare</h1>
@@ -183,16 +234,15 @@ _renderEventForm(){
   );
   }
   componentWillMount(){
-    // var eventRef = app.database().ref('events/' + this.state.currentEvent);
-    // eventRef.on('child_added', (snapshot) => {
-    //       if(this.state.currentEvent !== "") {
-    //         this.setState({
-    //         events: snapshot.val()
-    //       });
-    //         console.log(this.state.events);
-    //       }
-    //     })
 
+  // app.database().ref('events/1475714122245/bills').on('value', (snapshot) => {
+  //           var bills = this._convertBillToArray(snapshot.val())
+  //           this.setState({
+  //           bills: bills
+  //         });
+  //
+  //         this._totalBill();
+  //       })
   }
 
 
@@ -200,7 +250,7 @@ _renderEventForm(){
 
   }
   componentDidMount(){
-    //set database listener here to update state
+
 }
 }
 
