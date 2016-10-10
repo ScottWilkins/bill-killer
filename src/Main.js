@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import BillForm from './components/BillForm';
 import EventForm from './components/EventForm';
 import Bill from './components/Bill';
+import AddFriend from './components/AddFriend';
 import cookie from 'react-cookie';
 import './App.css';
 import _ from 'lodash';
@@ -33,7 +34,7 @@ class Main extends Component {
     this._totalBill = this._totalBill.bind(this);
     this._loadEvent = this._loadEvent.bind(this);
     this._setBillStateToFirebase = this._setBillStateToFirebase.bind(this);
-
+    this._addFriend = this._addFriend.bind(this);
 
   }
   _convertBillToObject(bill){
@@ -198,11 +199,36 @@ class Main extends Component {
     this._setBillStateToFirebase()
   })
 }
+_addFriend(email){
+  if(!email){
+    alert("Please enter a valid email. The person you invite must sign up with FairShare first.");
+          return;
+  }
+
+    var user = cookie.load("FairShareUserId")
+    var eventId = this.state.currentEvent
+    console.log(eventId);
+    app.database().ref('users/' + user + '/events').orderByChild("eventId").equalTo(eventId).once('value', (snapshot) => {
+      var event = Object.keys(snapshot.val())[0]
+      var eventName = snapshot.val()[event].eventName
+      var eventDate = snapshot.val()[event].eventDate
+      app.database().ref('users').orderByChild("email").equalTo(email).once('value', (snap) => {
+          var userId = Object.keys(snap.val())[0]
+          var obj = {eventDate, eventId, eventName}
+
+           //console.log(newPostKey);
+          app.database().ref('users/' + userId + '/events/' + event).set(obj);
+    });
+
+});
+}
 _renderEventForm(){
   var name = cookie.load('FairShareName')
   if(name !== "undefined" && name !== "guest" && this.state.currentEvent === "")
  {
    return <EventForm addEvent={this._addEvent}/>
+ } else if(this.state.currentEvent !== "") {
+   return <AddFriend addFriend={this._addFriend}/>;
  } else {
    return "";
  }
