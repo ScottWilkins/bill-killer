@@ -108,7 +108,10 @@
   background-color: #89a7b6;
   color: #fff;
   font-size: 1em;
-
+}
+.comment-form input {
+  margin: 6px;
+  font-size: 20px;
 }
 td {
     padding: 3px;
