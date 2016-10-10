@@ -30,11 +30,11 @@
 
   }
 .title-div {
-  /*margin-top: 85px;*/
   margin-left: 30%;
   align-self: flex-start;
-
-
+}
+.title-div h1 {
+  font-size: 3em;
 }
 .logo {
   margin-top: 20px;
@@ -54,7 +54,7 @@
 .navbar-div h3, .link {
   font-weight: normal;
   color: #fff;
-  font-size: 1em;
+  font-size: 1.3em;
   text-decoration: underline;
 }
 .how-to-div {
@@ -166,6 +166,7 @@ label {
   color: #fff;
   font-size: 1em;
   margin-left: 2px;
+  margin-top: 10px;
 }
 .bullets-div {
   padding: 25px;
@@ -209,7 +210,6 @@ label {
   cursor: pointer;
 }
 .login-form {
-  height: 500px;
   color: #fff;
   padding-top: 10px;
   display: flex;
@@ -219,6 +219,19 @@ label {
   width: 100%;
   background-color: #89a7b6;
   margin-top: 70px;
+}
+.login-form-fields{
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  background-color: #222b7a;
+  margin-top: 50px;
+  margin-bottom: 150px;
+}
+.login-form-fields button{
+  margin-top: 30px;
+  width: 130px;
 }
 .login-form input {
   margin-right: 10px;

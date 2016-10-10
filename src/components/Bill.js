@@ -16,7 +16,7 @@ class Bills extends Component {
     let tot = this.props.billTotal
     let num = this.props.numberOfUsers
     let weight = this.props.weight
-    let weighted = weight > 1 ? " x " + weight : ""
+    let weighted = weight !== 1 ? " * " + weight : ""
     let owed = ((tot * 100) / (num * 100) * weight).toFixed(2) - total
     let owedStatus = owed <= 0 ? this.props.name + " is owed $" + Math.abs(owed).toFixed(2) : this.props.name + " owes $" + owed.toFixed(2)
     return (

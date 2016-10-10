@@ -14,7 +14,7 @@ class BillForm extends Component {
           <input placeholder="Name" ref={(input) => this._name = input}/>
           <div>
             <label>weighted:</label>
-            <input type="number" step="0.5" placeholder="default is 1" ref={(input) => this._weight = input}/>
+            <input type="number" step="0.1" placeholder="default is 1" ref={(input) => this._weight = input}/>
           </div>
         </div>
         <div className="bill-form-actions">

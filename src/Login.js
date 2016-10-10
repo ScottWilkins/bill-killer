@@ -12,7 +12,6 @@ class LogIn extends Component {
   }
   _login (email, pass) {
     const auth = app.auth();
-    //const promise =
         auth.signInWithEmailAndPassword(email, pass).then(function(user){
         cookie.save("FairShareUserId", user.uid);
 
@@ -21,11 +20,7 @@ class LogIn extends Component {
          cookie.save("FairShareName", name);
          window.location.href= "/";
        })
-        //   this.props.navigator.push({
-        //   title: 'LocksContainer',
-        //   component: LocksContainer,
-        // });
-        // this.setState({"email": "", "password": "", "navbarHide": false});
+
       }).catch(function(e){
           alert(e)
         });

@@ -25,7 +25,7 @@ class LogInForm extends Component {
           <label>Email</label>
           <input type="email" placeholder="jon_snow@knownothing.com" ref={(input) => this._email = input}/>
             <label>Password</label>
-            <input type="text" placeholder="password" ref={(input) => this._password = input}/>
+            <input type="password" placeholder="password" ref={(input) => this._password = input}/>
             <button style={{backgroundColor: "green"}} type="submit">Submit</button>
         </div>
 

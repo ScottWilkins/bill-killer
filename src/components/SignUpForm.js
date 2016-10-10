@@ -32,9 +32,9 @@ class LogInForm extends Component {
           <label>Email</label>
           <input type="email" placeholder="jon_snow@knownothing.com" ref={(input) => this._email = input}/>
             <label>Password</label>
-            <input type="text" placeholder="CastleBlack22" ref={(input) => this._password = input}/>
+            <input type="password" placeholder="CastleBlack22" ref={(input) => this._password = input}/>
             <label>Verify Password</label>
-            <input type="text" placeholder="verify password" ref={(input) => this._passwordCheck = input}/>
+            <input type="password" placeholder="verify password" ref={(input) => this._passwordCheck = input}/>
             <button style={{backgroundColor: "green"}} type="submit">Submit</button>
         </div>
 
