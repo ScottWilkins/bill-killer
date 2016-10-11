@@ -5,10 +5,8 @@ class EventForm extends Component {
   constructor(){
     super();
     this._handleSubmit = this._handleSubmit.bind(this)
-    // this._getDate = this._getDate.bind(this);
   }
   render () {
-    // var newdate  = this._getDate()
     return (
 
       <form className="comment-form" onSubmit={this._handleSubmit}>
@@ -21,21 +19,14 @@ class EventForm extends Component {
           </div>
         </div>
         <div className="bill-form-actions">
-          <button type="submit">Add</button>
+          <button type="submit"><i className="fa fa-plus-circle"></i> Add</button>
         </div>
       </form>
     )
   }
-  // _getDate (){
-  //   var dateObj = new Date();
-  //   var month = dateObj.getUTCMonth() + 1; //months from 1-12
-  //   var day = dateObj.getUTCDate();
-  //   var year = dateObj.getUTCFullYear();
-  //   return   +year + "-"+ +month  + "-"  + +day ;
-  // }
+
   _handleSubmit(e){
     e.preventDefault();
-    // var newdate = this._getDate()
     let event = this._event.value;
     let date = this._date.value
     this.props.addEvent(event, date)

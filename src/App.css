@@ -3,7 +3,6 @@
   padding: 0;
 }
 .container {
-  /*height: 200vh;*/
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -12,9 +11,9 @@
 .splash-div {
   margin-top: 8%;
   padding: 10px;
-  width: 100%;
+  width: 110%;
   display: flex;
-  background-color: #c1cddc;
+  background: url('./assets/background.png');
   justify-content: flex-start;
   align-items: flex-end;
   font-family: Impact;
@@ -62,7 +61,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: #9ab8c7;
+  background-color: transparent;
   height: 55%;
   width: 100%;
   padding-bottom: 25px;
@@ -102,12 +101,14 @@
   margin-bottom: 20px;
   margin-right: 25px;
   width: 400px;
-  border: solid white 2px
+  border: solid white 2px;
+  border-radius: 5px;
 }
 .comment-form button {
   background-color: #89a7b6;
   color: #fff;
   font-size: 1em;
+    border-radius: 5px;
 }
 .comment-form input {
   margin: 6px;
@@ -137,6 +138,7 @@ table {
   height: 300px;
   overflow: scroll;
   border: solid #c1cddc 2px;
+  border-radius: 5px;
 }
 .bill-div h1 {
   color: #003300;
@@ -147,11 +149,13 @@ table {
   color: #fff;
   padding: 10px;
   border: solid white 2px;
+  border-radius: 5px;
 }
 .bill-results-div {
   width: 100vw;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
 .bill-form-fields {
   display: flex;
@@ -184,6 +188,7 @@ label {
 }
 .bullets-div h5 {
   margin: 5px;
+  font-size: 1em;
 }
 .camping-img {
   margin-top: 20px;
@@ -217,7 +222,7 @@ label {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-color: #89a7b6;
+  background-color: transparent;
   margin-top: 70px;
 }
 .login-form-fields{
@@ -225,7 +230,7 @@ label {
   display: flex;
   flex-direction: column;
   width: 40%;
-  background-color: #222b7a;
+  background-color: #000022;
   margin-top: 50px;
   margin-bottom: 150px;
 }
@@ -270,4 +275,20 @@ input {
 }
 .signup-login-btn {
   color: "green";
+}
+.spacer {
+  height: 100px;
+  width: 100%;
+}
+.spacer-main {
+  height: 50px;
+  width: 100%;
+}
+body {
+  background: url('./assets/firecamp.png');
+  background-size: 100%;
+     background-attachment: fixed;
+}
+.how-it-works{
+  font-size: 1em;
 }

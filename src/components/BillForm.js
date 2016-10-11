@@ -18,7 +18,7 @@ class BillForm extends Component {
           </div>
         </div>
         <div className="bill-form-actions">
-          <button type="submit">Add</button>
+          <button type="submit"><i className="fa fa-plus-circle"></i> Add</button>
         </div>
       </form>
     )

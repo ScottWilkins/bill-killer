@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Logo from './components/Logo';
-import camping from './assets/firecamp.png';
 import Navbar from './components/Navbar';
 import TryOut from './components/TryOut'
 
@@ -12,7 +11,7 @@ class Splash extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container splash">
         <Navbar />
         <div className="splash-div">
           <div className="title-div">
@@ -20,15 +19,14 @@ class Splash extends Component {
           </div>
           <Logo />
         </div>
-        <img className="camping-img" src={camping} alt="campfire" />
-            <h4 className="motto-txt">Who Owes What</h4>
+        <div className="spacer"></div>
         <div className="bullets-div">
-          <h5>Fairshare lets you split costs with friends</h5>
-          <h5>Perfect for roommates and camping trips</h5>
-          <h5>Weights allow children to be included or partners who share an account</h5>
-          <h5>Split costs evenly and efficiently</h5>
-          <h5>Work together on an event or separately with realtime updates</h5>
-          <h5>Pay or get paid directly through Venmo</h5>
+          <h5><i className="fa fa-plus-circle"></i> Fairshare lets you split costs with friends</h5>
+          <h5><i className="fa fa-plus-circle"></i> Perfect for roommates and camping trips</h5>
+          <h5><i className="fa fa-plus-circle"></i> Weights allow children to be included or partners who share an account</h5>
+          <h5><i className="fa fa-plus-circle"></i> Split costs evenly and efficiently</h5>
+          <h5><i className="fa fa-plus-circle"></i> Work together on an event or separately with realtime updates</h5>
+          <h5><i className="fa fa-plus-circle"></i> Save your events by signing up!</h5>
           <TryOut />
         </div>
       </div>

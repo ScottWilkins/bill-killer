@@ -258,9 +258,9 @@ _renderEventForm(){
           </div>
           <Logo />
         </div>
-            <h4 className="motto-txt">Who Owes What</h4>
+        <div className="spacer-main"></div>
         <div className="how-to-div">
-          <Calculator />
+
           <div style={{display:"flex"}}>
             <BillForm addBill={this._addBill}/>
             {eventform}
@@ -275,22 +275,7 @@ _renderEventForm(){
       </div>
   );
   }
-  componentWillMount(){
-    // var eventId = this.state.currentEvent
-    // app.database().ref('events/'+ eventId).on('value', (snapshot) => {
-    //         var bills = this._convertBillToArray(snapshot.val())
-    //         this.setState({
-    //         bills: bills
-    //       });
-    //
-    //       this._totalBill();
-    //     })
-  }
 
-
-  componentWillUnmount() {
-
-  }
   componentDidMount(){
     var eventId = this.state.currentEvent
     if(!eventId) return;

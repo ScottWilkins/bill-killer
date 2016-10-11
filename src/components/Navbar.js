@@ -25,9 +25,9 @@ class Navbar extends Component {
     if (name === "undefined" || name === "guest") {
       return (
         <div className="login-signup-buttons-div">
-          <Link className="link" to="/Login"><button className="login-btn">Log In</button> </Link>
+          <Link className="link" to="/Login"><button className="login-btn"><i className="fa fa-user"></i> Log In</button> </Link>
             <h3 style={{textDecoration: "none"}}>&nbsp; or &nbsp; </h3>
-          <Link className="link" to="/Signup"><button className="signup-btn">Sign Up</button></Link>
+          <Link className="link" to="/Signup"><button className="signup-btn"><i className="fa fa-user-plus"></i> Sign Up</button></Link>
         </div>
       )
     } else {
@@ -43,7 +43,7 @@ class Navbar extends Component {
               </ul>
             </div>
             <div className="dropdown">
-              <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">My Events
+              <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i className="fa fa-tree"></i> My Events
               </button>
               <ul className="dropdown-menu">
                 {events}
@@ -79,7 +79,6 @@ class Navbar extends Component {
     const userId = cookie.load('FairShareUserId');
     app.database().ref('users/' + userId).on('value', (snapshot) => {
        var eventsList = snapshot.child("events").val();
-       //console.log(eventsList);
        this.setState({
          events: eventsList
        })
@@ -89,8 +88,8 @@ class Navbar extends Component {
     const user = this._determineUser()
     return (
       <div className="navbar-div">
-        <Link className="link" to="/">Home</Link>
-        <Link className="link" to="/splash">About</Link>
+        <Link className="link" to="/"><i className="fa fa-home"></i> Home</Link>
+        <Link className="link" to="/splash"><i className="fa fa-info-circle"></i> About</Link>
         {user}
       </div>
     )

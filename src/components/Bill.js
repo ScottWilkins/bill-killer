@@ -25,7 +25,7 @@ class Bills extends Component {
         <form  className="bill-form-details" onSubmit={this._handleSubmit}>
           <input type="number" step="0.01" placeholder="0" ref={(input) => this._number = input}/>
           <input type="text" placeholder="Optional Description" ref={(input) => this._description = input}/>
-          <button className="add-button" type="submit">Add</button>
+          <button className="add-button" type="submit"><i className="fa fa-plus-circle"></i> Add</button>
         </form>
         <table>
           <thead>
