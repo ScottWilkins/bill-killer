@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Logo from './components/Logo';
-import Calculator from './components/Calculator';
 import Navbar from './components/Navbar';
 import BillForm from './components/BillForm';
 import EventForm from './components/EventForm';
@@ -20,7 +19,8 @@ class Main extends Component {
       billTotal: 0,
       bills: [],
       currentEvent: "",
-      events: ""
+      events: "",
+      home: true
     }
     this._addBill = this._addBill.bind(this);
     this._deleteBill = this._deleteBill.bind(this);
@@ -125,7 +125,6 @@ class Main extends Component {
   }
   _onAdd(number,idNum,description){
     const idx = _.findIndex(this.state.bills, function(bill) { return bill.id === idNum })
-    //this.state.bills[idx].total
     const bills = [...this.state.bills]
     bills[idx].total.push({payment: +number, description: description});
     this.setState({
@@ -207,7 +206,6 @@ _addFriend(email){
 
     var user = cookie.load("FairShareUserId")
     var eventId = this.state.currentEvent
-    console.log(eventId);
     app.database().ref('users/' + user + '/events').orderByChild("eventId").equalTo(eventId).once('value', (snapshot) => {
       var event = Object.keys(snapshot.val())[0]
       var eventName = snapshot.val()[event].eventName
@@ -215,12 +213,12 @@ _addFriend(email){
       app.database().ref('users').orderByChild("email").equalTo(email).once('value', (snap) => {
           var userId = Object.keys(snap.val())[0]
           var obj = {eventDate, eventId, eventName}
-
-           //console.log(newPostKey);
           app.database().ref('users/' + userId + '/events/' + event).set(obj);
-    });
+    }).catch(function(e){
+        alert(e)
+      });
 
-});
+})
 }
 _renderEventForm(){
   var name = cookie.load('FairShareName')
@@ -251,7 +249,10 @@ _renderEventForm(){
     return (
       <div className="container">
         <Navbar clearBills={this._clearBills}
-                loadEvent={this._loadEvent}/>
+                loadEvent={this._loadEvent}
+                home={this.state.home}
+                  />
+
         <div className="splash-div">
           <div className="title-div">
             <h1>FairShare</h1>

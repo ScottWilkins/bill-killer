@@ -89,7 +89,8 @@ class Navbar extends Component {
     return (
       <div className="navbar-div">
         <Link className="link" to="/"><i className="fa fa-home"></i> Home</Link>
-        <Link className="link" to="/splash"><i className="fa fa-info-circle"></i> About</Link>
+        <Link className="link" to="/splash"><i className="fa fa-question-circle"></i> About</Link>
+        <Link className="link" to="/faq"><i className="fa fa-info-circle"></i> FAQ</Link>
         {user}
       </div>
     )

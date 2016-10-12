@@ -16,12 +16,12 @@ class Bills extends Component {
     let tot = this.props.billTotal
     let num = this.props.numberOfUsers
     let weight = this.props.weight
-    let weighted = weight !== 1 ? " * " + weight : ""
+    let weighted = weight !== 1 ? weight : 1;
     let owed = ((tot * 100) / (num * 100) * weight).toFixed(2) - total
     let owedStatus = owed <= 0 ? this.props.name + " is owed $" + Math.abs(owed).toFixed(2) : this.props.name + " owes $" + owed.toFixed(2)
     return (
       <div  className="bill-div" >
-        <h1>{this.props.name}{weighted}</h1>
+        <h1>{this.props.name} <i className="fa fa-user-times"></i> {weighted}</h1>
         <form  className="bill-form-details" onSubmit={this._handleSubmit}>
           <input type="number" step="0.01" placeholder="0" ref={(input) => this._number = input}/>
           <input type="text" placeholder="Optional Description" ref={(input) => this._description = input}/>
@@ -38,8 +38,11 @@ class Bills extends Component {
           </tbody>
         </table>
         <h2>${total.toFixed(2)}</h2>
-        <h2 style={owed <= 0 ? {color: "#339966"} : {color: "#992600"}}>{owedStatus}</h2>
-        <a href="#" onClick={this._handleDelete}>Delete User</a>
+        <div className="owed-div" style={owed <= 0 ? {backgroundColor: "#339966"} : {backgroundColor: "#992600"}}>
+            <h2>{owedStatus}</h2>
+        </div>
+
+        <a href="#" onClick={this._handleDelete}><button className="btn btn-danger">Delete User</button></a>
       </div>
     );
   }
